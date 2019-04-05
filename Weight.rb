@@ -1,6 +1,6 @@
-puts "Здравствуйте, как вас зовут?"
+puts 'Здравствуйте, как вас зовут?'
 name = gets.to_s
-puts "Введите рост"
+puts 'Введите рост'
 growth = gets.to_i
 if growth <= 1
   puts "Привет #{name}, твой оптимальный вес #{growth - 110}"
