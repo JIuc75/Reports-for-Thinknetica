@@ -7,8 +7,8 @@ c = gets.to_f
 d = b**2 - 4 * a * c
 if d.positive?
   sqrt = Math.sqrt(d)
-  x1 = (-b + sqrt) / (2 * a)
-  x2 = (-b - sqrt) / (2 * a)
+  x1 = (-b + sqrt) / (2.0 * a)
+  x2 = (-b - sqrt) / (2.0 * a)
   puts "Дискриминант= #{d}"
   puts "Kорень x1= #{x1}"
   puts "Корень x2= #{x2}"
