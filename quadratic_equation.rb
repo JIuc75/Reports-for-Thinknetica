@@ -6,7 +6,7 @@ puts 'Введите коэффициент C'
 c = gets.to_f
 d = b**2 - 4 * a * c
 if d.positive?
-  sqrt = Math.sqrt(D)
+  sqrt = Math.sqrt(d)
   x1 = (-b + sqrt) / (2 * a)
   x2 = (-b - sqrt) / (2 * a)
   puts "Дискриминант= #{d}"
