@@ -5,14 +5,14 @@ b = gets.to_f
 puts 'Введите коэффициент C'
 c = gets.to_f
 d = b**2 - 4 * a * c
-if d > 0
+if d.positive?
   sqrt = Math.sqrt(D)
   x1 = (-b + sqrt) / (2 * a)
   x2 = (-b - sqrt) / (2 * a)
   puts "Дискриминант= #{d}"
   puts "Kорень x1= #{x1}"
   puts "Корень x2= #{x2}"
-elsif d = 0
+elsif d.zero?
   x1 = (-b) / (2 * a)
   puts "Дискриминант= #{d}"
   puts "Kорень x1,x2= #{x1}"
