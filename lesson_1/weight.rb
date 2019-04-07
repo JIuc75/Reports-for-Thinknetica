@@ -4,7 +4,7 @@ puts 'Введите рост'
 growth = gets.to_f
 ideal_weight = growth - 110
 if ideal_weight < 0
-  puts "Привет #{name}, твой вес оптимальный"
+  puts "Привет #{name}, твой вес оптимальный."
 else
-  puts "Привет #{name}, твой оптимальный вес #{ideal_weight}"
+  puts "Привет #{name}, твой оптимальный вес #{ideal_weight}."
 end
