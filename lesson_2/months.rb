@@ -1,6 +1,6 @@
-months = { Январь: 31, Февраль: 28, Март: 31, Апрель: 30, Май: 31,
-           Июнь: 30, Июль: 31, Август: 31, Сентябрь: 30, Октябрь: 31,
-           Ноябрь: 30, Декабрь: 31 }
-months.each do |a, b|
-  puts a if b == 30
+months = { January: 31, February: 28, March: 31, April: 30, May: 31,
+           June: 30, July: 31, August: 31, September: 30, October: 31,
+           November: 30, December: 31 }
+months.each do |month, day|
+  puts month if day == 30
 end
