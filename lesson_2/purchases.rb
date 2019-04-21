@@ -1,4 +1,4 @@
-basket = Hash.new(0)
+basket = {}
 loop do
   puts 'Введите название товара'
   title = gets.chomp
@@ -8,7 +8,7 @@ loop do
   puts 'Введите количество товара'
   quantity = gets.to_i
   basket[title] = { price: price, amount: quantity }
-  end
+end
 puts "Товары в корзине: #{basket}"
 total = 0
 basket.each do |product, quan|
