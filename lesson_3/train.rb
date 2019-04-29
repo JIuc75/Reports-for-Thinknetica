@@ -13,7 +13,7 @@ class Train
   end
 
   def down_speed(speed)
-    @speed -= speed if speed.nonzero?
+    @speed -= speed if speed.negative?
   end
 
   def add_wagons
@@ -21,7 +21,7 @@ class Train
   end
 
   def delete_wagon
-    @amount_of_wagons -= 1 if amount_of_wagons != 0 && speed.zero?
+    @amount_of_wagons -= 1 if amount_of_wagons.positive? && speed.zero?
   end
 
   def route=(route)
@@ -39,14 +39,14 @@ class Train
   end
 
   def current_station
-    @index_station
+    route.stations[@index_station]
   end
 
   def next_station
-    @index_station + 1
+    @route.stations[@index_station + 1]
   end
 
   def previous_station
-    @index_station - 1 if @index_station.nonzero?
+    @route.stations[@index_station - 1]
   end
 end
