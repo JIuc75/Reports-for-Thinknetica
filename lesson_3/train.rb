@@ -27,26 +27,35 @@ class Train
   def route=(route)
     @route = route
     @index_station = 0
-    route.current_station.accept_train(self)
+    current_station
   end
 
   def forward
-    @index_station += 1
+    return if (@current_station == @route.end_station)
+    @current_station_index += 1
+    current_station
   end
 
   def backward
-    @index_station -= 1
+    return if (@current_station == @route.start_station)
+    @current_station_index -= 1
+    current_station
   end
 
   def current_station
-    route.stations[@index_station]
+    @current_station.send_train(self) if @current_station
+    @current_station = @route.stations[@index_station]
+    @current_station.accept_train(self)
   end
 
   def next_station
-    @route.stations[@index_station + 1]
+    return if (@current_station == @route.end_station)
+    @current_station += 1
   end
 
   def previous_station
-    @route.stations[@index_station - 1]
+    return if (@current_station == @route.start_station)
+    @route.stations[@current_station_index - 1]
   end
+
 end
