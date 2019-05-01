@@ -24,34 +24,35 @@ class Train
     @amount_of_wagons -= 1 if amount_of_wagons.positive? && speed.zero?
   end
 
-  def route=(route)
+  def route(route)
     @route = route
     @index_station = 0
     current_station
   end
 
   def forward
-    @current_station.accept_train(self)
+    return if next_station.nil?
+    current_station.accept_train(self)
+    @route.stations[@index_station += 1]
     current_station
   end
 
   def backward
-    @current_station.send_train(self) if @current_station
+    current_station.send_train(self) if current_station
+    @route.stations[@index_station -= 1] if @index_station.positive?
     current_station
   end
 
   def current_station
-    @current_station = @route.stations[@index_station]
-  end
-
-  def next_station
-    return if next_station.nil?
     @route.stations[@index_station]
   end
 
+  def next_station
+    @route.stations[@index_station + 1]
+  end
+
   def previous_station
-    return if previous_station.nil?
-    @route.stations[@index_station.positive?]
+    @route.stations[@index_station - 1] if @index_station.positive?
   end
 
 end
