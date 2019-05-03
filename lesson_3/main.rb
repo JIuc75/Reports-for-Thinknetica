@@ -30,14 +30,14 @@ loop do
   puts 'Для оправки поезда введите start'
   start = gets.chomp
   train.forward if start == 'start'
-  puts train.current_station.name
   break if start == 'stop'
+  puts "Поезд прибыл на станцию #{train.current_station.name}"
 end
 
 loop do
   puts 'Для возврата поезда введите back'
   back = gets.chomp
   train.backward if back == 'back'
-  puts train.current_station.name
   break if back == 'stop'
+  puts "Поезд прибыл на станцию #{train.current_station.name}"
 end
