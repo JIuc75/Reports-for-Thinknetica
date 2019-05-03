@@ -37,3 +37,10 @@ loop do
   break if start == 'stop'
 end
 
+loop do
+  puts 'Для возврата поезда введите back'
+  back = gets.chomp
+  train.backward if back == 'back'
+  puts train.current_station.name
+  break if back == 'stop'
+end
