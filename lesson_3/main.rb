@@ -26,14 +26,14 @@ puts 'Добавте промежуточные станции'
 loop do
   station = gets.chomp
   route.add_station(station)
-  a = gets.chomp
-  break if a == 'stop'
+  break if station == 'stop'
 end
 train.route = route
-puts 'Для оправки поезда введите start'
-start = gets.chomp
-if start == 'start'
-  train.forward
+loop do
+  puts 'Для оправки поезда введите start'
+  start = gets.chomp
+  train.forward if start == 'start'
   puts train.current_station.name
+  break if start == 'stop'
 end
 
