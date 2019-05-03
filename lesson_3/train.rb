@@ -33,14 +33,15 @@ class Train
   def forward
     return if next_station.nil?
     current_station.send_train(self)
-    @index_station += 1
     next_station.accept_train(self)
+    @index_station += 1
   end
 
   def backward
+    return if previous_station.nil?
     current_station.send_train(self)
-    @index_station -= 1 if @index_station.positive?
     previous_station.accept_train(self)
+    @index_station -= 1
   end
 
   def current_station
