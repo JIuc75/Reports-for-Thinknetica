@@ -25,7 +25,7 @@ class Train
     @amount_of_wagons -= 1 if amount_of_wagons.positive? && speed.zero?
   end
 
-  def route=(route)
+  def routes(route)
     @route = route
     @index_station = 0
     current_station.accept_train(self)
