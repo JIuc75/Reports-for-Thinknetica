@@ -1,19 +1,20 @@
 class Train
   attr_reader :number, :type, :speed, :amount_of_wagons, :route
 
-  def initialize(number, type, amount_of_wagons)
+  def initialize(number, type)
     @number = number
     @type = type
-    @amount_wagons = amount_of_wagons
     @speed = 0
   end
+
 
   def up_speed(speed)
     @speed += speed
   end
 
   def down_speed(speed)
-    @speed -= speed if speed.negative?
+    @speed -= speed
+    @speed = 0 if speed.negative?
   end
 
   def add_wagons

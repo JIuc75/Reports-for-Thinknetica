@@ -4,6 +4,7 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
+    @stations = []
   end
 
   def accept_train(train)
