@@ -20,8 +20,8 @@ def create_trains
   loop do
     puts 'Введите № поезда и тип или просто нажмите Enter, чтобы выйти'
     number = gets.chomp
-    type = gets.chomp
     break if number == ''
+    type = gets.chomp
     @trains << Train.new(number, type)
     @trains.each.with_index(1) { |train, index| puts "Поезд #{index} № #{train.number} - #{train.type}" }
   end
@@ -33,17 +33,23 @@ def create_routes
   loop do
     puts 'Введите номер маршрута или пустую строку (просто нажмите Enter), чтобы выйти'
     number_route = gets.chomp
+    break if number_route == ''
     puts 'Введите название первой станции'
     one_station = gets.chomp
     puts 'Введите название последней станции'
     end_station = gets.chomp
-    break if number_route == ''
     @routes << Route.new(@stations.find { |st| st.name == one_station }, @stations.find { |st| st.name == end_station })
     @routes.each.with_index(1) do |route, index|
       puts "Маршрут #{index} - первая станция #{route.stations[0].name}, последняя станция #{route.stations[-1].name}"
     end
   end
 end
+
+def set_rote_for_train
+  @n = @trains.each(&:number)
+  puts @n.number
+end
 create_station
 create_trains
 create_routes
+set_rote_for_train
