@@ -1,16 +1,13 @@
 class Route
   attr_reader :start_station, :end_station, :stations, :number_route
 
-  def initialize(start_station, end_station)
-    @stations = []
-    @start_station = start_station
-    @end_station = end_station
-    @stations << @start_station << @end_station
+  def initialize(start_station, end_station, number)
+    @stations = [start_station, end_station]
+    @number_route = number
   end
 
   def add_station(station)
-    @station = Station.new(station)
-    @stations.insert(-2, @station)
+    @stations.insert(-2, station)
   end
 
   def delete_station(station)

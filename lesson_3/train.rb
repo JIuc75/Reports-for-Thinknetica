@@ -7,7 +7,6 @@ class Train
     @speed = 0
   end
 
-
   def up_speed(speed)
     @speed += speed
   end
@@ -25,7 +24,7 @@ class Train
     @amount_of_wagons -= 1 if amount_of_wagons.positive? && speed.zero?
   end
 
-  def routes(route)
+  def route=(route)
     @route = route
     @index_station = 0
     current_station.accept_train(self)
@@ -33,6 +32,7 @@ class Train
 
   def forward
     return if next_station.nil?
+
     current_station.send_train(self)
     next_station.accept_train(self)
     @index_station += 1
@@ -40,6 +40,7 @@ class Train
 
   def backward
     return if previous_station.nil?
+
     current_station.send_train(self)
     previous_station.accept_train(self)
     @index_station -= 1
@@ -56,5 +57,4 @@ class Train
   def previous_station
     @route.stations[@index_station - 1] if @index_station.positive?
   end
-
 end
