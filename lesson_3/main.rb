@@ -79,6 +79,7 @@ class Main
         train.route = (@routes.find { |route|
           route.number_route == number_route })
       end
+      @trains.each { |train| puts "Поезду присвоен маршрут #{train.route.number_route}" if train.number == number_train }
     end
   end
 end
@@ -87,6 +88,6 @@ mn = Main.new
 mn.create_stations
 mn.create_trains
 mn.create_routes
-mn.add_stations
+
 mn.set_rote_for_train
 
