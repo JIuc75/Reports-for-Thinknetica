@@ -1,10 +1,11 @@
 class Train
-  attr_reader :number, :type, :speed, :route
+  attr_reader :number, :type, :speed, :route, :wagons
 
   def initialize(number, type)
     @number = number
     @type = type
     @speed = 0
+    @wagons = []
   end
 
   def up_speed(speed)
@@ -17,19 +18,11 @@ class Train
   end
 
   def add_wagon(wagons)
-    if @speed.zero?
-      @wagons << wagons
-    else
-      puts "Поезд в движении"
-    end
+    @wagons << wagons if @speed.zero?
   end
 
   def del_wagon(wagons)
-    if @speed.zero? && !@wagons.empty?
-      @wagons.delete(wagons)
-    else
-      puts "Поезд в движении"
-    end
+    @wagons.delete(wagons) if @speed.zero? && !@wagons.empty?
   end
 
   def route=(route)
