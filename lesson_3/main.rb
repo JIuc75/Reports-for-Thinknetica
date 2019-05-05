@@ -33,7 +33,7 @@ class Main
 
   def create_stations
     loop do
-      puts 'Введите название станции или просто нажмите Enter, чтобы выйти'
+      puts 'Введите название станции или пустую строку (просто нажмите Enter), чтобы выйти'
       name_station = gets.chomp
       break if name_station == ''
 
@@ -50,7 +50,7 @@ class Main
 
   def create_trains
     loop do
-      puts 'Введите № поезда и тип или просто нажмите Enter, чтобы выйти'
+      puts 'Введите № поезда и тип или пустую строку (просто нажмите Enter), чтобы выйти'
       number_train = gets.to_i
       break if number_train.zero?
 
@@ -90,38 +90,46 @@ class Main
   end
 
   def add_stations
-    puts 'Введите название станции'
-    name_station = gets.chomp
-    puts 'Введите номер маршрута'
-    number_route = gets.to_i
-    if stations_exist?(name_station) && routes_exist?(number_route)
-      @routes.each do |route|
-        if route.number_route == number_route
-          route.add_station(@stations.find { |st| st.name == name_station })
+    loop do
+      puts 'Введите название станции или пустую строку (просто нажмите Enter), чтобы выйти'
+      name_station = gets.chomp
+      break if name_station == ''
+
+      puts 'Введите номер маршрута'
+      number_route = gets.to_i
+      if stations_exist?(name_station) && routes_exist?(number_route)
+        @routes.each do |route|
+          if route.number_route == number_route
+            route.add_station(@stations.find { |st| st.name == name_station })
+          end
         end
+      else
+        puts 'Убедитесь в существовании станции и маршрута'
       end
-    else
-      puts 'Убедитесь в существовании станции и маршрута'
     end
   end
 
   def set_route_for_train
-    puts 'Введите номер маршрута'
-    number_route = gets.to_i
-    puts 'Введите номер поезда'
-    number_train = gets.to_i
-    if routes_exist?(number_route) && trains_exist?(number_train)
-      @trains.each do |train|
-        next unless train.number == number_train
+    loop do
+      puts 'Введите номер маршрута или пустую строку (просто нажмите Enter), чтобы выйти'
+      number_route = gets.to_i
+      break if number_route.zero?
 
-        train.route = (@routes.find do |route|
-                         route.number_route == number_route
-                       end)
+      puts 'Введите номер поезда'
+      number_train = gets.to_i
+      if routes_exist?(number_route) && trains_exist?(number_train)
+        @trains.each do |train|
+          next unless train.number == number_train
+
+          train.route = (@routes.find do |route|
+                           route.number_route == number_route
+                         end)
+        end
+      else
+        puts 'Убедитесь в существовании маршрута и поезда'
       end
-    else
-      puts 'Убедитесь в существовании маршрута и поезда'
+      @trains.each { |train| puts "Поезду присвоен маршрут #{train.route.number_route}" if train.number == number_train }
     end
-    @trains.each { |train| puts "Поезду присвоен маршрут #{train.route.number_route}" if train.number == number_train }
   end
 
   def create_wagons
