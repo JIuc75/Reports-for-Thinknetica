@@ -28,7 +28,7 @@ class Main
   end
 
   def wagons_exist?(number_wagons)
-    @routes.find { |route| route.number_route == number_wagons }
+    @wagons.find { |wagons| wagons.number == number_wagons }
   end
 
   def create_stations
@@ -105,7 +105,7 @@ class Main
     end
   end
 
-  def set_rote_for_train
+  def set_route_for_train
     puts 'Введите номер маршрута'
     number_route = gets.to_i
     puts 'Введите номер поезда'
@@ -155,4 +155,4 @@ mn.create_trains
 mn.create_routes
 mn.create_wagons
 mn.add_stations
-mn.set_rote_for_train
+mn.set_route_for_train
