@@ -1,10 +1,3 @@
-require_relative 'station'
-require_relative 'route'
-require_relative 'train'
-require_relative 'wagons'
-require_relative 'wagon_passenger'
-require_relative 'wagon_cargo'
-
 class Main
   attr_reader :stations, :trains, :routes, :wagons
 
@@ -54,11 +47,17 @@ class Main
       number_train = gets.to_i
       break if number_train.zero?
 
-      type = gets.chomp
       if number_train.zero? || trains_exist?(number_train)
         puts 'Поезд таким номером уже существует!'
       else
-        @trains << Train.new(number_train, type)
+        begin
+          puts 'Выберите тип поезда'
+          puts '1. Грузовой'
+          puts '2. Пассажирский'
+          a = gets.to_i
+        end until a == 1 || a == 2
+        @trains << CargoTrain.new(number_train) if a == 1
+        @trains << PassengerTrain.new(number_train) if a == 2
       end
       @trains.each.with_index(1) do |train, index|
         puts "Поезд #{index} № #{train.number} - #{train.type}"
@@ -89,19 +88,26 @@ class Main
     end
   end
 
-  def add_stations
+  def add_and_del_stations
     loop do
-      puts 'Введите название станции или пустую строку (просто нажмите Enter), чтобы выйти'
-      name_station = gets.chomp
-      break if name_station == ''
-
-      puts 'Введите номер маршрута'
+      puts 'Введите номер маршрута или пустую строку (просто нажмите Enter), чтобы выйти'
       number_route = gets.to_i
+      puts 'Введите название станции'
+      name_station = gets.chomp
+      break if number_route.zero?
+
       if stations_exist?(name_station) && routes_exist?(number_route)
-        @routes.each do |route|
-          if route.number_route == number_route
-            route.add_station(@stations.find { |st| st.name == name_station })
-          end
+        begin
+          puts 'Что вы хотите сделать?'
+          puts '1. Прицепить вагон'
+          puts '2. Отцепить вагон'
+          a = gets.to_i
+        end until a == 1 || a == 2
+        @routes.each do |train|
+          train.add_station(@stations.find { |st| st.name == name_station }) if train.number == number_route && a == 1
+        end
+        @routes.each do |train|
+          train.delete_station(@wagons.find { |st| st.name == name_station }) if train.number == number_route && a == 2
         end
       else
         puts 'Убедитесь в существовании станции и маршрута'
@@ -155,12 +161,74 @@ class Main
       end
     end
   end
+
+  def add_and_del_wagons_to_train
+    puts 'Введите номер вагона'
+    number_wagons = gets.to_i
+    puts 'Введите номер поезда'
+    number_train = gets.to_i
+    if wagons_exist?(number_wagons) && trains_exist?(number_train)
+      begin
+        puts 'Что вы хотите сделать?'
+        puts '1. Прицепить вагон'
+        puts '2. Отцепить вагон'
+        a = gets.to_i
+      end until a == 1 || a == 2
+      @trains.each do |train|
+        train.add_wagon(@wagons.find { |wagons| wagons.number == number_wagons }) if train.number == number_train && a == 1
+      end
+      @trains.each do |train|
+        train.del_wagon(@wagons.find { |wagons| wagons.number == number_wagons }) if train.number == number_train && a == 2
+      end
+    else
+      puts 'Убедитесь в существовании вагона и поезда'
+    end
+  end
+
+  def send_tarins
+    puts 'Введите номер поезда'
+    number_train = gets.to_i
+    if trains_exist?(number_train)
+      begin
+        puts 'Куда вы хотите переместить?'
+        puts '1. Вперед'
+        puts '2. Назад'
+        a = gets.to_i
+      end until a == 1 || a == 2
+      @trains.each { |train| train.forward if train.number == number_train } if a == 1
+      @trains.each { |train| train.backward if train.number == number_train } if a == 2
+    else
+      puts 'Поезда с таким номером не существует!'
+    end
+  end
 end
 
-mn = Main.new
-mn.create_stations
-mn.create_trains
-mn.create_routes
-mn.create_wagons
-mn.add_stations
-mn.set_route_for_train
+def show_trains_on_station
+  puts 'Введите название станции'
+  name_station = gets.chomp
+  if stations_exist?(name_station)
+    puts "На станции \"#{name_station}\" находятся поезда:"
+    @stations.each { |station| station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" } if station.name == name_station }
+  else
+    puts 'Такой станции не существует'
+  end
+end
+
+def all_station
+  @stations.each.with_index(1) { |station, index| puts "Станция № #{index} - #{station.name}" }
+end
+
+def show_menu
+  puts '1. Создать станцию'
+  puts '2. Создать поезд'
+  puts '3. Создать маршрут'
+  puts '4. Создать вагон'
+  puts '5. Добавить/Удалить станцию в/из маршрут(а)'
+  puts '6. Назначить маршрут поезду'
+  puts '7. Прицепить/Отцепить вагон к/от поезду(а)'
+  puts '8. Переместить поезд по маршруту'
+  puts '9. Показать все станции'
+  puts '10. Показать все поезда на станции'
+  puts '11. Выход'
+end
+
