@@ -17,14 +17,6 @@ class Train
     @speed = 0 if speed.negative?
   end
 
-  def add_wagon(wagons)
-    @wagons << wagons if @speed.zero?
-  end
-
-  def del_wagon(wagons)
-    @wagons.delete(wagons) if @speed.zero? && !@wagons.empty?
-  end
-
   def route=(route)
     @route = route
     @route.number_route

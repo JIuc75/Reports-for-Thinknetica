@@ -53,7 +53,8 @@ class Main
     puts '---------------------------------'
     puts 'Введите название станции'
     name_station = gets.chomp
-    run if name_station.empty?
+    return if name_station.empty?
+
     if stations_exist?(name_station)
       puts STATION_ALREADY_EXIST
       return create_stations
@@ -131,15 +132,17 @@ class Main
     number_route = gets.chomp
     return create_routes if number_route.empty?
 
-    puts 'Введите название первой станции'
-    one_station = gets.chomp
-    puts 'Введите название последней станции'
-    end_station = gets.chomp
+    puts 'Выберите начальную станцию'
+    @stations.each.with_index(1) { |station, index| puts "Станиця № #{index} - \"#{station.name}\"" }
+    one_station = select_station_collect(@stations)
+    puts 'Выберите конечную станцию'
+    @stations.each.with_index(1) { |station, index| puts "Станиця № #{index} - \"#{station.name}\"" }
+    end_station = select_station_collect(@stations)
     if number_route.empty? || routes_exist?(number_route)
       puts ROUTE_ALREADY_EXIST
     else
-      @routes << Route.new(@stations.find { |st| st.name == one_station },
-                           @stations.find { |st| st.name == end_station },
+      @routes << Route.new(@stations.find { |st| st.name == one_station.name },
+                           @stations.find { |st| st.name == end_station.name },
                            number_route)
     end
     @routes.each.with_index(1) do |route, index|
@@ -163,17 +166,25 @@ class Main
     end
   end
 
+  def select_station_collect(collection)
+    index = gets.to_i - 1
+    return if index.negative?
+
+    collection[index]
+  end
+
   def add_stations
-    puts 'Введите номер маршрута или пустую строку (просто нажмите Enter), чтобы выйти'
+    puts 'Введите номер маршрута'
     number_route = gets.chomp
-    puts 'Введите название станции'
-    name_station = gets.chomp
+    @stations.each.with_index(1) { |station, index| puts "Станиця № #{index} - \"#{station.name}\"" }
+    puts 'Выберите станцию из списка'
+    name_station = select_station_collect(@stations)
     return add_stations if number_route.empty?
 
-    if stations_exist?(name_station) && routes_exist?(number_route)
+    if  stations_exist?(name_station) && routes_exist?(number_route)
       show_add_stations_menu
-      @routes.each do |train|
-        train.add_station(@stations.find { |st| st.name == name_station }) if train.number == number_route
+      @routes.each do |route|
+        route.add_station(@stations.find { |st| st.name == name_station.name })
       end
     else
       puts ROUTE_AND_STATION_ALREADY_EXIST
@@ -182,16 +193,16 @@ class Main
   end
 
   def del_stations
-    puts 'Введите номер маршрута или введите 1 чтобы выйти'
+    puts 'Введите номер маршрута'
     number_route = gets.chomp
-    puts 'Введите название станции'
-    name_station = gets.chomp
+    puts 'Выберите станцию из списка'
+    name_station = select_station_collect(@stations)
     return del_stations if number_route.empty?
 
     if stations_exist?(name_station) && routes_exist?(number_route)
       show_add_stations_menu
       @routes.each do |train|
-        train.add_station(@stations.find { |st| st.name == name_station }) if train.number == number_route
+        train.add_station(@stations.find { |st| st.name == name_station })
       end
     else
       puts ROUTE_AND_STATION_ALREADY_EXIST
@@ -212,10 +223,17 @@ class Main
     end
   end
 
+  def select_route_collect(collection)
+    index = gets.to_i - 1
+    return if index.negative?
+
+    collection[index]
+  end
+
   def set_route_for_train
     puts '---------------------------------'
-    puts 'Введите номер маршрута'
-    number_route = gets.chomp
+    puts 'Выберите номер маршрута'
+    number_route = select_route_collect(@routes)
     return set_route_for_train if number_route.empty?
 
     puts 'Введите номер поезда'
@@ -261,11 +279,12 @@ class Main
     puts '---------------------------------'
     puts 'Введите номер вагона'
     number_wagons = gets.chomp
-    if number_wagons.zero? || wagons_exist?(number_wagons)
+    if number_wagons.empty? || wagons_exist?(number_wagons)
       return create_wagons if number_wagons.empty?
 
       puts WAGONS_ALREADY_EXIST
       @wagons.each.with_index(1) { |wagons, index| puts "Вагон #{index} - #{wagons.number} тип вагона - " + wagons.type }
+      create_wagons
     else
       show_menu_create_type_wagons
       case gets.to_i
@@ -307,16 +326,18 @@ class Main
       @wagons.each.with_index(1) { |wagons, index| puts "Вагон #{index} - #{wagons.number}, тип вагона - " + wagons.type }
     else
       puts WAGONS_AND_TRAIN_ALREADY_EXIST
+      add_wagons_to_train
     end
+    show_add_wagons_menu
   end
 
   def del_wagons_to_train
     puts '---------------------------------'
     puts 'Введите номер вагона'
-    number_wagons = gets.to_i
+    number_wagons = gets.chomp
     puts '---------------------------------'
     puts 'Введите номер поезда'
-    number_train = gets.to_i
+    number_train = gets.chomp
     if wagons_exist?(number_wagons) && trains_exist?(number_train)
       show_add_wagons_menu
       @trains.each do |train|
