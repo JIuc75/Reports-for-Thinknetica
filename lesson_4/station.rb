@@ -6,10 +6,6 @@ class Station
     @trains = []
   end
 
-  def create_new_station(name_station)
-      @stations << Station.new(name_station)
-  end
-
   def accept_train(train)
     @trains << train
   end

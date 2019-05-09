@@ -391,7 +391,7 @@ class Main
   def show_trains_on_station
     puts '---------------------------------'
     puts 'Введите название станции'
-    name_station = gets.chomp
+    name_station = select_station_collect(@stations)
     if stations_exist?(name_station)
       puts "На станции \"#{name_station}\" находятся поезда:"
       @stations.each { |station| station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" } if station.name == name_station }
