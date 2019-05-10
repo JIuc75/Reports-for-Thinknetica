@@ -476,19 +476,27 @@ class Main
   end
 
   def all_station
-    @stations.each.with_index(1) { |station, index| puts "Станция № #{index} - #{station.name}" }
+    @stations.each.with_index(1) do |station, index|
+      puts "Станция № \"#{index}\" - #{station.name}"
+    end
   end
 
   def all_route
-    @routes.each.with_index(1) { |route, index| puts "Маршрут № #{index} - #{route.number_route}" }
+    @routes.each.with_index(1) do |route, index|
+      puts "Маршрут № \"#{index}\" - #{route.number_route}"
+    end
   end
 
   def all_train
-    @trains.each.with_index(1) { |train, index| puts "Поезд № #{index} - #{train.number}" }
+    @trains.each.with_index(1) do |train, index|
+      puts "Поезд № \"#{index}\" - #{train.number}"
+    end
   end
 
   def all_wagon
-    @wagons.each.with_index(1) { |wagon, index| puts "Поезд № #{index} - #{wagon.number}" }
+    @wagons.each.with_index(1) do |wagon, index|
+      puts "Вагон № \"#{index}\" - #{wagon.number}"
+    end
   end
 end
 
