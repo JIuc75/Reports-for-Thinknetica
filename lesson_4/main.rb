@@ -35,7 +35,7 @@ class Main
   end
 
   def show_menu_create_station
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Продолжить создание станций'
     puts '2. Завершить создание станций'
@@ -43,14 +43,14 @@ class Main
     when 1 then create_stations
     when 2 then run
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Введите 1 или 2'
       return
     end
   end
 
   def create_stations
-    puts DELIMETER
+    puts DIVIDER
     puts 'Введите название станции'
     name_station = gets.chomp
     return if name_station.empty?
@@ -74,7 +74,7 @@ class Main
   end
 
   def show_menu_create_trains
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Продолжить создание поездов'
     puts '2. Завершить создание поездов'
@@ -82,14 +82,14 @@ class Main
     when 1 then create_trains
     when 2 then run
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Введите 1 или 2'
       return
     end
   end
 
   def create_trains
-    puts DELIMETER
+    puts DIVIDER
     puts 'Введите номер поезда'
     number_train = gets.chomp
     return if number_train.empty?
@@ -112,7 +112,7 @@ class Main
   end
 
   def show_menu_create_routes
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Продолжить создание маршрутов'
     puts '2. Завершить создание маршрутов'
@@ -120,14 +120,14 @@ class Main
     when 1 then create_routes
     when 2 then run
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Введите 1 или 2'
       return
     end
   end
 
   def create_routes
-    puts DELIMETER
+    puts DIVIDER
     puts 'Введите номер маршрут'
     all_route
     number_route = gets.chomp
@@ -155,7 +155,7 @@ class Main
   end
 
   def show_add_stations_menu
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Добавить станцию'
     puts '2. Удалить станцию'
@@ -197,7 +197,7 @@ class Main
   end
 
   def del_stations
-    puts DELIMETER
+    puts DIVIDER
     puts 'Выберите маршрут из списка'
     all_route
     route = select_from_collect(@routes)
@@ -219,7 +219,7 @@ class Main
   end
 
   def show_menu_set_route
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Продолжить создание маршрутов'
     puts '2. Выйти'
@@ -233,7 +233,7 @@ class Main
   end
 
   def set_route_for_train
-    puts DELIMETER
+    puts DIVIDER
     puts 'Выберите номер маршрута'
     all_route
     number_route = select_from_collect(@routes)
@@ -258,14 +258,14 @@ class Main
   end
 
   def show_menu_create_type_wagons
-    puts DELIMETER
+    puts DIVIDER
     puts 'Выберите тип вагона'
     puts '1. Грузовой'
     puts '2. Пассажирский'
   end
 
   def show_menu_create_wagons
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Продолжить создание вагонов'
     puts '2. Завершить создание вагонов'
@@ -273,14 +273,14 @@ class Main
     when 1 then create_wagons
     when 2 then run
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Выберите 1 или 2'
       return
     end
   end
 
   def create_wagons
-    puts DELIMETER
+    puts DIVIDER
     puts 'Введите вагон из списка'
     all_wagon
     number_wagons = select_from_collect(@wagons)
@@ -294,7 +294,7 @@ class Main
       when 1 then @wagons << CargoWagon.new(number_wagons)
       when 2 then @wagons << PassengerWagon.new(number_wagons)
       else
-        puts DELIMETER
+        puts DIVIDER
         puts 'Выберите 1 или 2'
       end
       @wagons.each.with_index(1) do |wagons, index|
@@ -305,7 +305,7 @@ class Main
   end
 
   def show_add_wagons_menu
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Прицепить вагон'
     puts '2. Отцепить вагон'
@@ -313,13 +313,13 @@ class Main
     when 1 then add_wagons_to_train
     when 2 then del_wagons_to_train
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Выберите 1 или 2'
     end
   end
 
   def add_wagons_to_train
-    puts DELIMETER
+    puts DIVIDER
     puts 'Выберите вагон из списка'
     all_wagon
     wagons = select_from_collect(@wagons)
@@ -340,7 +340,7 @@ class Main
   end
 
   def del_wagons_to_train
-    puts DELIMETER
+    puts DIVIDER
     puts 'Выберите вагон из списка'
     all_wagon
     wagons = select_from_collect(@wagons)
@@ -360,14 +360,14 @@ class Main
   end
 
   def show_menu_send_train
-    puts DELIMETER
+    puts DIVIDER
     puts 'Куда вы хотите переместить поезд?'
     puts '1. Вперед'
     puts '2. Назад'
   end
 
   def show_menu_action_train
-    puts DELIMETER
+    puts DIVIDER
     puts 'Что вы хотите сделать?'
     puts '1. Продолжить управление поездами'
     puts '2. Завершить управление поездами'
@@ -375,14 +375,14 @@ class Main
     when 1 then send_train
     when 2 then run
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Выберите 1 или 2'
       return
     end
   end
 
   def send_train
-    puts DELIMETER
+    puts DIVIDER
     puts 'Выберите поезд'
     all_train
     train = select_from_collect(@trains)
@@ -402,7 +402,7 @@ class Main
   end
 
   def show_trains_on_station
-    puts DELIMETER
+    puts DIVIDER
     puts 'Выберите станцию из списка'
     all_station
     station = select_from_collect(@stations)
@@ -410,7 +410,7 @@ class Main
       puts "На станции \"#{station}\" находятся поезда:"
       station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Такой станции не существует'
     end
   end
@@ -465,7 +465,7 @@ class Main
     when 12 then show_trains_on_station
     when 13 then exit
     else
-      puts DELIMETER
+      puts DIVIDER
       puts 'Выберите число, соответствующее списку'
       return run
     end
