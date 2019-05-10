@@ -389,7 +389,7 @@ class Main
         puts 'Выберите 1 или 2'
       end
       all_wagon
-      end
+    end
     manage_create_wagons
   end
 
