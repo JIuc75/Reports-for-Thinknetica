@@ -265,9 +265,7 @@ class Main
     else
       puts 'Выберите 1 или 2'
     end
-    @trains.each.with_index(1) do |train, index|
-      puts "Поезд #{index} - \"№ #{train.number}\" - \"#{train.type}\""
-    end
+    all_train
     manage_trains
   end
 
@@ -292,9 +290,7 @@ class Main
       puts ROUTE_ALREADY_EXIST
     else
       @routes << Route.new(one_station, end_station, number_route)
-    end
-    @routes.each.with_index(1) do |route, index|
-      puts "Маршрут #{index} - первая станция #{route.first_station.name}, последняя станция #{route.last_station.name}"
+      all_route
     end
     manage_routes
   end
@@ -392,10 +388,8 @@ class Main
         puts DIVIDER
         puts 'Выберите 1 или 2'
       end
-      @wagons.each.with_index(1) do |wagons, index|
-        puts "Вагон #{index} - #{wagons.number}, тип вагона - " + wagons.type
+      all_wagon
       end
-    end
     manage_create_wagons
   end
 
