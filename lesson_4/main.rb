@@ -108,6 +108,7 @@ class Main
     @trains.each.with_index(1) do |train, index|
       puts "Поезд #{index} - \"№ #{train.number}\" - \"#{train.type}\""
     end
+    show_menu_create_trains
   end
 
   def show_menu_create_routes
@@ -126,11 +127,11 @@ class Main
   end
 
   def create_routes
-    puts DILIMETR
-    puts 'Введите маршрут из списка'
+    puts DELIMETER
+    puts 'Введите номер маршрут'
     all_route
-    route = select_from_collect(@routes)
-    return if route.nil?
+    number_route = gets.chomp
+    return if number_route.empty?
 
     puts 'Выберите начальную станцию из списка'
     all_station
@@ -142,10 +143,10 @@ class Main
     end_station = select_from_collect(@stations)
     return if end_station.nil?
 
-    if number_route.empty? || routes_exist?(route)
+    if number_route.empty? || routes_exist?(number_route)
       puts ROUTE_ALREADY_EXIST
     else
-      @routes << Route.new(one_station.name, end_station.name, number_route)
+      @routes << Route.new(one_station, end_station, number_route)
     end
     @routes.each.with_index(1) do |route, index|
       puts "Маршрут #{index} - первая станция #{route.first_station.name}, последняя станция #{route.last_station.name}"
@@ -187,10 +188,8 @@ class Main
     return if station.nil?
 
     if stations_exist?(station) && routes_exist?(route)
-      show_add_stations_menu
-      @routes.each do |route|
+      show_add_stations_menu |
         route.add_station(station)
-      end
     else
       puts ROUTE_AND_STATION_ALREADY_EXIST
     end
@@ -216,7 +215,6 @@ class Main
       end
     else
       puts ROUTE_AND_STATION_ALREADY_EXIST
-      return
     end
   end
 
@@ -293,12 +291,14 @@ class Main
     else
       show_menu_create_type_wagons
       case gets.to_i
-      when 1 then @wagons << WagonsCargo.new(number_wagons)
-      when 2 then @wagons << WagonsPassenger.new(number_wagons)
-      @wagons.each.with_index(1) { |wagons, index| puts "Вагон #{index} - #{wagons.number}, тип вагона - " + wagons.type }
+      when 1 then @wagons << CargoWagon.new(number_wagons)
+      when 2 then @wagons << PassengerWagon.new(number_wagons)
       else
         puts DELIMETER
         puts 'Выберите 1 или 2'
+      end
+      @wagons.each.with_index(1) do |wagons, index|
+        puts "Вагон #{index} - #{wagons.number}, тип вагона - " + wagons.type
       end
     end
     show_menu_create_wagons
@@ -331,9 +331,7 @@ class Main
     return if train.nil?
 
     if wagons_exist?(wagons) && trains_exist?(train)
-      @trains.each do |train|
         train.add_wagon(wagons)
-      end
     else
       puts WAGONS_AND_TRAIN_ALREADY_EXIST
       return
@@ -355,12 +353,9 @@ class Main
 
     if wagons_exist?(wagons) && trains_exist?(train)
       show_add_wagons_menu
-      @trains.each do |train|
         train.del_wagon(wagons)
-      end
     else
       puts WAGONS_AND_TRAIN_ALREADY_EXIST
-      return
     end
   end
 
@@ -394,8 +389,8 @@ class Main
     if trains_exist?(train)
       show_menu_send_train
       case gets.to_i
-      when 1 then @trains.each { |train| train.forward if train.number == train }
-      when 2 then @trains.each { |train| train.backward if train.number == train }
+      when 1 then train.forward 
+      when 2 then train.backward 
       else
         puts 'Выберите 1 или 2'
       end
@@ -413,7 +408,7 @@ class Main
     station = select_from_collect(@stations)
     if stations_exist?(station)
       puts "На станции \"#{station}\" находятся поезда:"
-      @stations.each { |station| station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }}
+      station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
     else
       puts DELIMETER
       puts 'Такой станции не существует'
