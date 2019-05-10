@@ -9,6 +9,7 @@ require_relative 'cargo_wagon'
 require_relative 'constants'
 
 class Main
+
   def show_menu_create_station
     puts DIVIDER
     puts 'Что вы хотите сделать?'
@@ -107,9 +108,10 @@ class Main
       show_menu_create_routes
       case gets.to_i
       when 1 then create_routes
-      when 2 then run
+      when 2 then break
       end
     end
+    run
   end
 
   def manage_stations
@@ -117,9 +119,10 @@ class Main
       show_menu_create_station
       case gets.to_i
       when 1 then create_stations
-      when 2 then run
+      when 2 then break
       end
     end
+    run
   end
 
   def manage_trains
@@ -127,9 +130,10 @@ class Main
       show_menu_create_trains
       case gets.to_i
       when 1 then create_trains
-      when 2 then run
+      when 2 then break
       end
     end
+    run
   end
 
   def manage_add_station
@@ -138,18 +142,20 @@ class Main
       case gets.to_i
       when 1 then add_stations
       when 2 then del_stations
-      when 3 then run
+      when 3 then break
       end
     end
+    run
   end
 
   def manage_set_route
     loop do
       case gets.to_i
       when 1 then set_route_for_train
-      when 2 then run
+      when 2 then break
       end
     end
+    run
   end
 
   def manage_create_wagons
@@ -157,9 +163,10 @@ class Main
       show_menu_create_wagons
       case gets.to_i
       when 1 then create_wagons
-      when 2 then run
+      when 2 then break
       end
     end
+    run
   end
 
   def manage_add_wagons
@@ -167,9 +174,10 @@ class Main
       show_add_wagons_menu
       case gets.to_i
       when 1 then add_wagons_to_train
-      when 2 then run
+      when 2 then break
       end
     end
+    run
   end
 
   def manage_action_train
@@ -177,9 +185,10 @@ class Main
       show_menu_action_train
       case gets.to_i
       when 1 then send_train
-      when 2 then run
+      when 2 then break
       end
     end
+    run
   end
 
   def run
