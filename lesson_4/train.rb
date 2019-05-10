@@ -5,7 +5,6 @@ class Train
     @number = number
     @type = type
     @speed = 0
-    @wagons = []
   end
 
   def up_speed(speed)
@@ -15,6 +14,17 @@ class Train
   def down_speed(speed)
     @speed -= speed
     @speed = 0 if speed.negative?
+  end
+
+  def add_wagon(wagon)
+    return unless speed.zero?
+    return unless attachable_wagon?(wagon)
+
+    @wagons << wagon
+  end
+
+  def del_wagon(wagons)
+    @wagons.delete(wagons) if @speed.zero?
   end
 
   def route=(route)
