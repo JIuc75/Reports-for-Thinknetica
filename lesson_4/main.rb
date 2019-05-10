@@ -205,16 +205,6 @@ class Main
     end
   end
 
-  def text_create_station
-    puts DIVIDER
-    puts 'Введите название станции'
-  end
-
-  def text_create_train
-    puts DIVIDER
-    puts 'Введите номер поезда'
-  end
-
   private # для предотвращения доступа к методам напрямую
 
   attr_reader :stations, :trains, :routes, :wagons
@@ -243,7 +233,8 @@ class Main
   end
 
   def create_stations
-    text_create_station
+    puts DIVIDER
+    puts 'Введите название станции'
     name_station = gets.chomp
     return if name_station.empty?
 
@@ -252,13 +243,15 @@ class Main
       return
     else
       @stations << Station.new(name_station)
-      all_station
+    end
+    all_station
     end
     manage_stations
   end
 
   def create_trains
-    text_create_train
+    puts DIVIDER
+    puts 'Введите номер поезда'
     number_train = gets.chomp
     return if number_train.empty?
 
