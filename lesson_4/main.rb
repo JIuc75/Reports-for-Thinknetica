@@ -245,7 +245,6 @@ class Main
       @stations << Station.new(name_station)
     end
     all_station
-    end
     manage_stations
   end
 
