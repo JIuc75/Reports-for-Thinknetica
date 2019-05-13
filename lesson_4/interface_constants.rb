@@ -1,4 +1,4 @@
-module InterfaceConstant
+module InterfaceConstants
   TRAIN_ALREADY_EXIST = 'Поезд с таким номером уже существует!'.freeze
   STATION_ALREADY_EXIST = 'Станция с таким названием уже существует!'.freeze
   ROUTE_ALREADY_EXIST = 'Маршрут с таким номером уже существует'.freeze
