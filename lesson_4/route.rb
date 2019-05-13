@@ -1,9 +1,9 @@
 class Route
-  attr_reader :start_station, :end_station, :stations, :number_route
+  attr_reader :start_station, :end_station, :stations, :number
 
   def initialize(start_station, end_station, number)
     @stations = [start_station, end_station]
-    @number_route = number
+    @number = number
   end
 
   def add_station(station)
@@ -12,6 +12,7 @@ class Route
 
   def delete_station(station)
     return if [first_station, last_station].include?(station)
+
     @stations.delete(station)
   end
 

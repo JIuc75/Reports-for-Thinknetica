@@ -9,208 +9,28 @@ require_relative 'cargo_wagon'
 require_relative 'constants'
 
 class Main
-
-  def show_menu_create_station
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Продолжить создание станций'
-    puts '2. Завершить создание станций'
-  end
-
-  def show_train_type_menu
-    puts 'Выберите тип поезда'
-    puts '1. Грузовой'
-    puts '2. Пассажирский'
-  end
-
-  def show_menu_create_trains
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Продолжить создание поездов'
-    puts '2. Завершить создание поездов'
-  end
-
-  def show_menu_create_routes
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Продолжить создание маршрутов'
-    puts '2. Завершить создание маршрутов'
-  end
-
-  def show_add_stations_menu
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Добавить станцию'
-    puts '2. Удалить станцию'
-    puts '3. Выйти'
-  end
-
-  def show_menu_create_type_wagons
-    puts DIVIDER
-    puts 'Выберите тип вагона'
-    puts '1. Грузовой'
-    puts '2. Пассажирский'
-  end
-
-  def show_menu_create_wagons
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Продолжить создание вагонов'
-    puts '2. Завершить создание вагонов'
-  end
-
-  def show_add_wagons_menu
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Прицепить вагон'
-    puts '2. Отцепить вагон'
-  end
-
-  def show_menu_set_route
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Продолжить создание маршрутов'
-    puts '2. Выйти'
-  end
-
-  def show_menu_send_train
-    puts DIVIDER
-    puts 'Куда вы хотите переместить поезд?'
-    puts '1. Вперед'
-    puts '2. Назад'
-  end
-
-  def show_menu_action_train
-    puts DIVIDER
-    puts 'Что вы хотите сделать?'
-    puts '1. Продолжить управление поездами'
-    puts '2. Завершить управление поездами'
-  end
-
-  def show_menu
-    puts '1. Создать станцию'
-    puts '2. Создать поезд'
-    puts '3. Создать маршрут'
-    puts '4. Создать вагон'
-    puts '5. Добавить станцию в маршрут'
-    puts '6. Удалить станцию из маршрута'
-    puts '7. Назначить маршрут поезду'
-    puts '8. Прицепить вагон к поезду'
-    puts '9. Отцепить вагон от поезда'
-    puts '10. Переместить поезд по маршруту'
-    puts '11. Показать все станции'
-    puts '12. Показать все поезда на станции'
-    puts '13. Выход'
-  end
-
-  def manage_routes
-    loop do
-      show_menu_create_routes
-      case gets.to_i
-      when 1 then create_routes
-      when 2 then break
-      end
-    end
-    run
-  end
-
-  def manage_stations
-    loop do
-      show_menu_create_station
-      case gets.to_i
-      when 1 then create_stations
-      when 2 then break
-      end
-    end
-    run
-  end
-
-  def manage_trains
-    loop do
-      show_menu_create_trains
-      case gets.to_i
-      when 1 then create_trains
-      when 2 then break
-      end
-    end
-    run
-  end
-
-  def manage_add_station
-    loop do
-      show_add_stations_menu
-      case gets.to_i
-      when 1 then add_stations
-      when 2 then del_stations
-      when 3 then break
-      end
-    end
-    run
-  end
-
-  def manage_set_route
-    loop do
-      case gets.to_i
-      when 1 then set_route_for_train
-      when 2 then break
-      end
-    end
-    run
-  end
-
-  def manage_create_wagons
-    loop do
-      show_menu_create_wagons
-      case gets.to_i
-      when 1 then create_wagons
-      when 2 then break
-      end
-    end
-    run
-  end
-
-  def manage_add_wagons
-    loop do
-      show_add_wagons_menu
-      case gets.to_i
-      when 1 then add_wagons_to_train
-      when 2 then break
-      end
-    end
-    run
-  end
-
-  def manage_action_train
-    loop do
-      show_menu_action_train
-      case gets.to_i
-      when 1 then send_train
-      when 2 then break
-      end
-    end
-    run
-  end
-
   def run
     show_menu
-    case gets.to_i
-    when 1 then create_stations
-    when 2 then create_trains
-    when 3 then create_routes
-    when 4 then create_wagons
-    when 5 then add_stations
-    when 6 then del_stations
-    when 7 then set_route_for_train
-    when 8 then add_wagons_to_train
-    when 9 then del_wagons_to_train
-    when 10 then send_train
-    when 11 then all_station
-    when 12 then show_trains_on_station
-    when 13 then exit
-    else
-      puts DIVIDER
-      puts 'Выберите число, соответствующее списку'
-      return run
+    loop do
+      case gets.to_i
+      when 1 then create_stations
+      when 2 then create_trains
+      when 3 then create_route
+      when 4 then create_wagons
+      when 5 then add_stations
+      when 6 then del_stations
+      when 7 then set_route_for_train
+      when 8 then add_wagons_to_train
+      when 9 then del_wagons_to_train
+      when 10 then send_train
+      when 11 then show_stations
+      when 12 then show_trains_on_station
+      when 13 then exit
+      else
+        puts DIVIDER
+        puts 'Выберите число, соответствующее списку'
+        return run
+      end
     end
   end
 
@@ -242,29 +62,29 @@ class Main
   end
 
   def create_stations
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Введите название станции'
     name_station = gets.chomp
     return if name_station.empty?
 
     if stations_exist?(name_station)
-      puts STATION_ALREADY_EXIST
+      puts InterfaceConstant::STATION_ALREADY_EXIST
       return
     else
       @stations << Station.new(name_station)
     end
-    all_station
+    show_stations
     manage_stations
   end
 
   def create_trains
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Введите номер поезда'
     number_train = gets.chomp
     return if number_train.empty?
 
     if trains_exist?(number_train)
-      puts TRAIN_ALREADY_EXIST
+      puts InterfaceConstant::TRAIN_ALREADY_EXIST
       return
     end
     show_train_type_menu
@@ -274,32 +94,32 @@ class Main
     else
       puts 'Выберите 1 или 2'
     end
-    all_train
+    show_trains
     manage_trains
   end
 
-  def create_routes
-    puts DIVIDER
+  def create_route
+    puts InterfaceConstant::DIVIDER
     puts 'Введите номер маршрут'
-    all_route
+    show_routes
     number_route = gets.chomp
     return if number_route.empty?
 
     puts 'Выберите начальную станцию из списка'
-    all_station
+    show_stations
     one_station = select_from_collect(@stations)
     return if one_station.nil?
 
     puts 'Выберите конечную станцию из списка'
-    all_station
+    show_stations
     end_station = select_from_collect(@stations)
     return if end_station.nil?
 
     if number_route.empty? || routes_exist?(number_route)
-      puts ROUTE_ALREADY_EXIST
+      puts InterfaceConstant::ROUTE_ALREADY_EXIST
     else
       @routes << Route.new(one_station, end_station, number_route)
-      all_route
+      show_routes
     end
     manage_routes
   end
@@ -313,12 +133,12 @@ class Main
 
   def add_stations
     puts 'Выберите маршрут из списка'
-    all_route
+    show_routes
     route = select_from_collect(@routes)
     return if route.nil?
 
     puts 'Выберите станцию из списка'
-    all_station
+    show_stations
     station = select_from_collect(@stations)
     return if station.nil?
 
@@ -326,20 +146,20 @@ class Main
       show_add_stations_menu |
         route.add_station(station)
     else
-      puts ROUTE_AND_STATION_ALREADY_EXIST
+      puts InterfaceConstant::ROUTE_AND_STATION_ALREADY_EXIST
     end
     manage_add_station
   end
 
   def del_stations
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Выберите маршрут из списка'
-    all_route
+    show_routes
     route = select_from_collect(@routes)
     return if route.nil?
 
     puts 'Выберите станцию из списка'
-    all_station
+    show_stations
     station = select_from_collect(@stations)
     return if station.nil?
 
@@ -349,20 +169,20 @@ class Main
         train.add_station(station)
       end
     else
-      puts ROUTE_AND_STATION_ALREADY_EXIST
+      puts InterfaceConstant::ROUTE_AND_STATION_ALREADY_EXIST
     end
     manage_add_station
   end
 
   def set_route_for_train
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Выберите номер маршрута'
-    all_route
+    show_routes
     number_route = select_from_collect(@routes)
     return if number_route.nil?
 
     puts 'Введите номер поезда'
-    all_train
+    show_trains
     number_train = select_from_collect(@trains)
     return if number_train.nil?
 
@@ -373,65 +193,65 @@ class Main
         train.route = number_route
       end
     else
-      puts ROUTE_AND_TRAIN_ALREADY_EXIST
+      puts InterfaceConstant::ROUTE_AND_TRAIN_ALREADY_EXIST
     end
     @trains.each { |train| puts "Поезду присвоен маршрут #{train.route.number_route}" }
     manage_set_route
   end
 
   def create_wagons
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Введите вагон из списка'
-    all_wagon
+    show_wagons
     number_wagons = select_from_collect(@wagons)
     if number_wagons.nil? || wagons_exist?(number_wagons)
       return if number_wagons.nil?
 
-      puts WAGONS_ALREADY_EXIST
+      puts InterfaceConstant::WAGONS_ALREADY_EXIST
     else
       show_menu_create_type_wagons
       case gets.to_i
       when 1 then @wagons << CargoWagon.new(number_wagons)
       when 2 then @wagons << PassengerWagon.new(number_wagons)
       else
-        puts DIVIDER
+        puts InterfaceConstant::DIVIDER
         puts 'Выберите 1 или 2'
       end
-      all_wagon
+      show_wagons
     end
     manage_create_wagons
   end
 
   def add_wagons_to_train
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Выберите вагон из списка'
-    all_wagon
+    show_wagons
     wagons = select_from_collect(@wagons)
     return if wagons.nil?
 
     puts 'Выберите поезд из списка'
-    all_train
+    show_trains
     train = select_from_collect(@trains)
     return if train.nil?
 
     if wagons_exist?(wagons) && trains_exist?(train)
       train.add_wagon(wagons)
     else
-      puts WAGONS_AND_TRAIN_ALREADY_EXIST
+      puts InterfaceConstant::WAGONS_AND_TRAIN_ALREADY_EXIST
       return
     end
     manage_add_wagons
   end
 
   def del_wagons_to_train
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Выберите вагон из списка'
-    all_wagon
+    show_wagons
     wagons = select_from_collect(@wagons)
     return if wagons.nil?
 
     puts 'Выберите поезд из списка'
-    all_train
+    show_trains
     train = select_from_collect(@trains)
     return if train.nil?
 
@@ -439,15 +259,15 @@ class Main
       show_add_wagons_menu
       train.del_wagon(wagons)
     else
-      puts WAGONS_AND_TRAIN_ALREADY_EXIST
+      puts InterfaceConstant::WAGONS_AND_TRAIN_ALREADY_EXIST
     end
     manage_add_wagons
   end
 
   def send_train
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Выберите поезд'
-    all_train
+    show_trains
     train = select_from_collect(@trains)
     if trains_exist?(train)
       show_menu_send_train
@@ -458,47 +278,220 @@ class Main
         puts 'Выберите 1 или 2'
       end
     else
-      puts TRAIN_NUMBER_ALREADY_EXIST
+      puts InterfaceConstant::TRAIN_NUMBER_ALREADY_EXIST
       return
     end
     manage_action_train
   end
 
   def show_trains_on_station
-    puts DIVIDER
+    puts InterfaceConstant::DIVIDER
     puts 'Выберите станцию из списка'
-    all_station
+    show_stations
     station = select_from_collect(@stations)
     if stations_exist?(station)
       puts "На станции \"#{station}\" находятся поезда:"
       station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
     else
-      puts DIVIDER
+      puts InterfaceConstant::DIVIDER
       puts 'Такой станции не существует'
     end
   end
 
-  def all_station
+  def show_stations
     @stations.each.with_index(1) do |station, index|
       puts "Станция № \"#{index}\" - #{station.name}"
     end
   end
 
-  def all_route
+  def show_routes
     @routes.each.with_index(1) do |route, index|
       puts "Маршрут № \"#{index}\" - #{route.number_route}"
     end
   end
 
-  def all_train
+  def show_trains
     @trains.each.with_index(1) do |train, index|
       puts "Поезд № \"#{index}\" - #{train.number}"
     end
   end
 
-  def all_wagon
+  def show_wagons
     @wagons.each.with_index(1) do |wagon, index|
       puts "Вагон № \"#{index}\" - #{wagon.number}"
+    end
+  end
+
+  def show_menu_create_station
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Продолжить создание станций'
+    puts '2. Завершить создание станций'
+  end
+
+  def show_train_type_menu
+    puts 'Выберите тип поезда'
+    puts '1. Грузовой'
+    puts '2. Пассажирский'
+  end
+
+  def show_menu_create_trains
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Продолжить создание поездов'
+    puts '2. Завершить создание поездов'
+  end
+
+  def show_menu_create_routes
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Продолжить создание маршрутов'
+    puts '2. Завершить создание маршрутов'
+  end
+
+  def show_add_stations_menu
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Добавить станцию'
+    puts '2. Удалить станцию'
+    puts '3. Выйти'
+  end
+
+  def show_menu_create_type_wagons
+    puts InterfaceConstant::DIVIDER
+    puts 'Выберите тип вагона'
+    puts '1. Грузовой'
+    puts '2. Пассажирский'
+  end
+
+  def show_menu_create_wagons
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Продолжить создание вагонов'
+    puts '2. Завершить создание вагонов'
+  end
+
+  def show_add_wagons_menu
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Прицепить вагон'
+    puts '2. Отцепить вагон'
+  end
+
+  def show_menu_set_route
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Продолжить создание маршрутов'
+    puts '2. Выйти'
+  end
+
+  def show_menu_send_train
+    puts InterfaceConstant::DIVIDER
+    puts 'Куда вы хотите переместить поезд?'
+    puts '1. Вперед'
+    puts '2. Назад'
+  end
+
+  def show_menu_action_train
+    puts InterfaceConstant::DIVIDER
+    puts 'Что вы хотите сделать?'
+    puts '1. Продолжить управление поездами'
+    puts '2. Завершить управление поездами'
+  end
+
+  def show_menu
+    puts '1. Создать станцию'
+    puts '2. Создать поезд'
+    puts '3. Создать маршрут'
+    puts '4. Создать вагон'
+    puts '5. Добавить станцию в маршрут'
+    puts '6. Удалить станцию из маршрута'
+    puts '7. Назначить маршрут поезду'
+    puts '8. Прицепить вагон к поезду'
+    puts '9. Отцепить вагон от поезда'
+    puts '10. Переместить поезд по маршруту'
+    puts '11. Показать все станции'
+    puts '12. Показать все поезда на станции'
+    puts '13. Выход'
+  end
+
+  def manage_routes
+    loop do
+      show_menu_create_routes
+      case gets.to_i
+      when 1 then create_routes
+      when 2 then break
+      end
+    end
+  end
+
+  def manage_stations
+    loop do
+      show_menu_create_station
+      case gets.to_i
+      when 1 then create_stations
+      when 2 then break
+      end
+    end
+  end
+
+  def manage_trains
+    loop do
+      show_menu_create_trains
+      case gets.to_i
+      when 1 then create_trains
+      when 2 then break
+      end
+    end
+  end
+
+  def manage_add_station
+    loop do
+      show_add_stations_menu
+      case gets.to_i
+      when 1 then add_stations
+      when 2 then del_stations
+      when 3 then break
+      end
+    end
+  end
+
+  def manage_set_route
+    loop do
+      case gets.to_i
+      when 1 then set_route_for_train
+      when 2 then break
+      end
+    end
+  end
+
+  def manage_create_wagons
+    loop do
+      show_menu_create_wagons
+      case gets.to_i
+      when 1 then create_wagons
+      when 2 then break
+      end
+    end
+  end
+
+  def manage_add_wagons
+    loop do
+      show_add_wagons_menu
+      case gets.to_i
+      when 1 then add_wagons_to_train
+      when 2 then break
+      end
+    end
+  end
+
+  def manage_action_train
+    loop do
+      show_menu_action_train
+      case gets.to_i
+      when 1 then send_train
+      when 2 then break
+      end
     end
   end
 end
