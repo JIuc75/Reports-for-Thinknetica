@@ -31,7 +31,6 @@ class Main
       else
         puts DIVIDER
         puts 'Выберите число, соответствующее списку'
-        return run
       end
     end
   end
