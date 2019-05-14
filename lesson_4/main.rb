@@ -3,7 +3,7 @@ require_relative 'train'
 require_relative 'route'
 require_relative 'cargo_train'
 require_relative 'passenger_train'
-require_relative 'wagons'
+require_relative 'wagon'
 require_relative 'passenger_wagon'
 require_relative 'cargo_wagon'
 require_relative 'interface_constants'
@@ -35,7 +35,7 @@ class Main
     end
   end
 
-  private # для предотвращения доступа к методам напрямую
+  private
 
   attr_reader :stations, :trains, :routes, :wagons
 
@@ -140,12 +140,8 @@ class Main
     station = select_from_collection(@stations)
     return if station.nil?
 
-    if stations_exist?(station) && routes_exist?(route)
-      show_add_stations_menu |
-        route.add_station(station)
-    else
-      puts ROUTE_AND_STATION_ALREADY_EXIST
-    end
+    show_add_stations_menu
+    route.add_station(station)
   end
 
   def del_stations
@@ -160,13 +156,9 @@ class Main
     station = select_from_collection(@stations)
     return if station.nil?
 
-    if stations_exist?(station) && routes_exist?(route)
-      show_add_stations_menu
-      @routes.each do |train|
-        train.add_station(station)
-      end
-    else
-      puts ROUTE_AND_STATION_ALREADY_EXIST
+    show_add_stations_menu
+    @routes.each do |train|
+      train.add_station(station)
     end
   end
 
@@ -182,23 +174,17 @@ class Main
     number_train = select_from_collection(@trains)
     return if number_train.nil?
 
-    if routes_exist?(number_route) && trains_exist?(number_train)
-      @trains.each do |train|
-        next unless train.number == number_train
-
+    @trains.each do |train|
         train.route = number_route
       end
-    else
-      puts ROUTE_AND_TRAIN_ALREADY_EXIST
-    end
     @trains.each { |train| puts "Поезду присвоен маршрут #{train.route.number_route}" }
   end
 
   def create_wagons
     puts DIVIDER
-    puts 'Введите вагон из списка'
+    puts 'Введите № вагона из списка'
     show_wagons
-    number_wagons = select_from_collection(@wagons)
+    number_wagons = gets.chomp
     if number_wagons.nil? || wagons_exist?(number_wagons)
       return if number_wagons.nil?
 
@@ -228,12 +214,7 @@ class Main
     train = select_from_collection(@trains)
     return if train.nil?
 
-    if wagons_exist?(wagons) && trains_exist?(train)
-      train.add_wagon(wagons)
-    else
-      puts WAGONS_AND_TRAIN_ALREADY_EXIST
-      return
-    end
+    train.add_wagon(wagons)
   end
 
   def del_wagons_to_train
@@ -248,12 +229,8 @@ class Main
     train = select_from_collection(@trains)
     return if train.nil?
 
-    if wagons_exist?(wagons) && trains_exist?(train)
-      show_add_wagons_menu
-      train.del_wagon(wagons)
-    else
-      puts WAGONS_AND_TRAIN_ALREADY_EXIST
-    end
+    show_add_wagons_menu
+    train.del_wagon(wagons)
   end
 
   def send_train
@@ -261,17 +238,12 @@ class Main
     puts 'Выберите поезд'
     show_trains
     train = select_from_collection(@trains)
-    if trains_exist?(train)
-      show_menu_send_train
-      case gets.to_i
-      when 1 then train.forward
-      when 2 then train.backward
-      else
-        puts 'Выберите 1 или 2'
-      end
+    show_menu_send_train
+    case gets.to_i
+    when 1 then train.forward
+    when 2 then train.backward
     else
-      puts TRAIN_NUMBER_ALREADY_EXIST
-      return
+      puts 'Выберите 1 или 2'
     end
   end
 
@@ -280,13 +252,10 @@ class Main
     puts 'Выберите станцию из списка'
     show_stations
     station = select_from_collection(@stations)
-    if stations_exist?(station)
-      puts "На станции \"#{station}\" находятся поезда:"
-      station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
-    else
-      puts DIVIDER
-      puts 'Такой станции не существует'
-    end
+    return if station.nil?
+
+    puts "На станции \"#{station}\" находятся поезда:"
+    station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
   end
 
   def show_stations
