@@ -37,13 +37,13 @@ class Main
 
   private
 
-  attr_reader :stations, :trains, :routes, :wagon
+  attr_reader :stations, :trains, :routes, :wagons
 
   def initialize
     @stations = []
     @trains = []
     @routes = []
-    @wagon = []
+    @wagons = []
   end
 
   def stations_exist?(name_station)
@@ -137,10 +137,9 @@ class Main
 
     puts 'Выберите станцию из списка'
     show_stations
-    station = select_from_collection(@stations)
+    station = select_from_collection(stations)
     return if station.nil?
 
-    show_add_stations_menu
     route.add_station(station)
   end
 
@@ -153,7 +152,7 @@ class Main
 
     puts 'Выберите станцию из списка'
     show_stations
-    station = select_from_collection(@stations)
+    station = select_from_collection(route.stations)
     return if station.nil?
 
     route.delete_station(station)
@@ -163,8 +162,8 @@ class Main
     puts DIVIDER
     puts 'Выберите номер маршрута'
     show_routes
-    number_route = select_from_collection(@routes)
-    return if number_route.nil?
+    route = select_from_collection(@routes)
+    return if route.nil?
 
     puts 'Введите номер поезда'
     show_trains
@@ -176,7 +175,7 @@ class Main
 
   def create_wagon
     puts DIVIDER
-    puts 'Введите № вагона из списка'
+    puts 'Введите № вагона'
     show_wagons
     number_wagons = gets.chomp
     if number_wagons.empty? || wagons_exist?(number_wagons)
@@ -185,8 +184,8 @@ class Main
     else
       show_menu_create_type_wagons
       case gets.to_i
-      when 1 then @wagon << CargoWagon.new(number_wagons)
-      when 2 then @wagon << PassengerWagon.new(number_wagons)
+      when 1 then @wagons << CargoWagon.new(number_wagons)
+      when 2 then @wagons << PassengerWagon.new(number_wagons)
       else
         puts DIVIDER
         puts 'Выберите 1 или 2'
@@ -199,7 +198,7 @@ class Main
     puts DIVIDER
     puts 'Выберите вагон из списка'
     show_wagons
-    wagon = select_from_collection(@wagon)
+    wagon = select_from_collection(@wagons)
     return if wagon.nil?
 
     puts 'Выберите поезд из списка'
@@ -214,7 +213,7 @@ class Main
     puts DIVIDER
     puts 'Выберите вагон из списка'
     show_wagons
-    wagon = select_from_collection(@wagon)
+    wagon = select_from_collection(@wagons)
     return if wagon.nil?
 
     puts 'Выберите поезд из списка'
@@ -222,8 +221,7 @@ class Main
     train = select_from_collection(@trains)
     return if train.nil?
 
-    show_add_wagons_menu
-    train.del_wagon(wagons)
+    train.del_wagon(wagon)
   end
 
   def send_train
@@ -259,7 +257,7 @@ class Main
 
   def show_routes
     @routes.each.with_index(1) do |route, index|
-      puts "Маршрут № \"#{index}\" - #{route.number_route}"
+      puts "Маршрут № \"#{index}\" - #{route.number}"
     end
   end
 
