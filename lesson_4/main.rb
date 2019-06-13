@@ -18,7 +18,7 @@ class Main
       when 1 then create_stations
       when 2 then create_trains
       when 3 then create_route
-      when 4 then create_wagons
+      when 4 then create_wagon
       when 5 then add_stations
       when 6 then del_stations
       when 7 then set_route_for_train
@@ -37,13 +37,13 @@ class Main
 
   private
 
-  attr_reader :stations, :trains, :routes, :wagons
+  attr_reader :stations, :trains, :routes, :wagon
 
   def initialize
     @stations = []
     @trains = []
     @routes = []
-    @wagons = []
+    @wagon = []
   end
 
   def stations_exist?(name_station)
@@ -156,10 +156,7 @@ class Main
     station = select_from_collection(@stations)
     return if station.nil?
 
-    show_add_stations_menu
-    @routes.each do |train|
-      train.add_station(station)
-    end
+    route.delete_station(station)
   end
 
   def set_route_for_train
@@ -171,29 +168,25 @@ class Main
 
     puts 'Введите номер поезда'
     show_trains
-    number_train = select_from_collection(@trains)
-    return if number_train.nil?
+    train = select_from_collection(@trains)
+    return if train.nil?
 
-    @trains.each do |train|
-        train.route = number_route
-      end
-    @trains.each { |train| puts "Поезду присвоен маршрут #{train.route.number_route}" }
+    train.route = route
   end
 
-  def create_wagons
+  def create_wagon
     puts DIVIDER
     puts 'Введите № вагона из списка'
     show_wagons
     number_wagons = gets.chomp
-    if number_wagons.nil? || wagons_exist?(number_wagons)
-      return if number_wagons.nil?
-
+    if number_wagons.empty? || wagons_exist?(number_wagons)
       puts WAGONS_ALREADY_EXIST
+      return
     else
       show_menu_create_type_wagons
       case gets.to_i
-      when 1 then @wagons << CargoWagon.new(number_wagons)
-      when 2 then @wagons << PassengerWagon.new(number_wagons)
+      when 1 then @wagon << CargoWagon.new(number_wagons)
+      when 2 then @wagon << PassengerWagon.new(number_wagons)
       else
         puts DIVIDER
         puts 'Выберите 1 или 2'
@@ -206,23 +199,23 @@ class Main
     puts DIVIDER
     puts 'Выберите вагон из списка'
     show_wagons
-    wagons = select_from_collection(@wagons)
-    return if wagons.nil?
+    wagon = select_from_collection(@wagon)
+    return if wagon.nil?
 
     puts 'Выберите поезд из списка'
     show_trains
     train = select_from_collection(@trains)
     return if train.nil?
 
-    train.add_wagon(wagons)
+    train.add_wagon(wagon)
   end
 
   def del_wagons_to_train
     puts DIVIDER
     puts 'Выберите вагон из списка'
     show_wagons
-    wagons = select_from_collection(@wagons)
-    return if wagons.nil?
+    wagon = select_from_collection(@wagon)
+    return if wagon.nil?
 
     puts 'Выберите поезд из списка'
     show_trains
@@ -379,7 +372,7 @@ class Main
     loop do
       show_menu_create_routes
       case gets.to_i
-      when 1 then create_routes
+      when 1 then create_route
       when 2 then break
       end
     end
@@ -429,7 +422,7 @@ class Main
     loop do
       show_menu_create_wagons
       case gets.to_i
-      when 1 then create_wagons
+      when 1 then create_wagon
       when 2 then break
       end
     end
