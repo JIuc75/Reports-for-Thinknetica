@@ -5,6 +5,7 @@ class Train
     @number = number
     @type = type
     @speed = 0
+    @wagons = []
   end
 
   def up_speed(speed)

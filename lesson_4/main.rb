@@ -94,7 +94,7 @@ class Main
     else
       puts 'Выберите 1 или 2'
     end
-    show_trains
+    show_trains(@trains)
   end
 
   def create_route
@@ -211,15 +211,15 @@ class Main
 
   def del_wagons_to_train
     puts DIVIDER
-    puts 'Выберите вагон из списка'
-    show_wagons(@wagons)
-    wagon = select_from_collection(@wagons)
-    return if wagon.nil?
-
     puts 'Выберите поезд из списка'
     show_trains(@trains)
     train = select_from_collection(@trains)
     return if train.nil?
+
+    puts 'Выберите вагон из списка'
+    show_wagons(train.wagons)
+    wagon = select_from_collection(train.wagons)
+    return if wagon.nil?
 
     train.del_wagon(wagon)
   end
@@ -245,7 +245,7 @@ class Main
     station = select_from_collection(@stations)
     return if station.nil?
 
-    puts "На станции \"#{station}\" находятся поезда:"
+    puts "На станции #{station} находятся поезда:"
     station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
   end
 
