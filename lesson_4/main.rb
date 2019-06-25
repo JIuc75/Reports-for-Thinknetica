@@ -83,6 +83,7 @@ class Main
     number_train = gets.chomp
     return if number_train.empty?
 
+
     if trains_exist?(number_train)
       puts TRAIN_ALREADY_EXIST
       return
@@ -100,7 +101,6 @@ class Main
   def create_route
     puts DIVIDER
     puts 'Введите номер маршрут'
-    show_routes(@routes)
     number_route = gets.chomp
     return if number_route.empty?
 
@@ -263,7 +263,7 @@ class Main
 
   def show_trains(trains)
     trains.each.with_index(1) do |train, index|
-      puts "Поезд № \"#{index}\" - #{train.number}"
+      puts "Поезд № \"#{index}\" - #{train.number} Производитель #{train.show_manufacture}"
     end
   end
 
