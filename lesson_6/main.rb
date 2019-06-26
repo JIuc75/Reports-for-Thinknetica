@@ -7,10 +7,11 @@ require_relative 'wagon'
 require_relative 'passenger_wagon'
 require_relative 'cargo_wagon'
 require_relative 'interface_constants'
+require_relative 'manufacture'
 
 class Main
   include InterfaceConstants
-
+  include Manufacture
   def run
     loop do
       show_menu
