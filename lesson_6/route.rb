@@ -1,9 +1,11 @@
 require_relative 'instance_counter'
 require_relative 'validations'
+require_relative 'interface_constants'
 
 class Route
   include InstanceCounter
   include Validations
+  include InterfaceConstants
 
   attr_reader :start_station, :end_station, :stations, :number
 

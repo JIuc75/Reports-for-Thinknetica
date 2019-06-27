@@ -5,6 +5,7 @@ require_relative 'interface_constants'
 class Station
   include InstanceCounter
   include Validations
+  include InterfaceConstants
 
   attr_reader :name, :trains
 
@@ -17,9 +18,9 @@ class Station
   def initialize(name)
     @name = name
     @trains = []
+    validate!
     @@instances << self
     register_instance
-    validate!
   end
 
   def accept_train(train)
