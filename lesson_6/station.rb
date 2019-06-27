@@ -1,11 +1,11 @@
 require_relative 'instance_counter'
 require_relative 'validations'
-require_relative 'interface_constants'
 
 class Station
   include InstanceCounter
   include Validations
-  include InterfaceConstants
+
+  EMPTY_NAME = 'Не указано наименование'.freeze
 
   attr_reader :name, :trains
 

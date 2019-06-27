@@ -8,11 +8,5 @@ module InterfaceConstants
   WAGONS_AND_TRAIN_ALREADY_EXIST = 'Убедитесь в существовании вагона и поезда'.freeze
   TRAIN_NUMBER_ALREADY_EXIST = 'Поезда с таким номером не существует!'.freeze
   DIVIDER = '---------------------------------'.freeze
-  NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i
-  ERROR_NUMBER_FORMAT = 'Неверный формат номера'.freeze
-  EMPTY_NAME = 'Не указано наименование'.freeze
-  INCORRECT_START_ST  = 'Неверный тип начальной станции'.freeze
-  INCORRECT_FINISH_ST = 'Неверный тип конечной станции'.freeze
-  SAME_STATIONS = 'Начальные и конечные станции не должны совпадать'.freeze
 end
 

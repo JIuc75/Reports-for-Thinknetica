@@ -1,13 +1,14 @@
 require_relative 'manufacture'
 require_relative 'instance_counter'
 require_relative 'validations'
-require_relative 'interface_constants'
 
 class Train
   include Manufacture
   include InstanceCounter
   include Validations
-  include InterfaceConstants
+
+  NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i
+  ERROR_NUMBER_FORMAT = 'Неверный формат номера'.freeze
 
   attr_reader :number, :type, :speed, :route, :wagons
 

@@ -101,9 +101,9 @@ class Main
       puts 'Выберите 1 или 2'
     end
     show_trains(@trains)
-  rescue RuntimeError
+  rescue RuntimeError => e
     puts DIVIDER
-    puts ERROR_NUMBER_FORMAT
+    puts e.message
     retry
   end
 
@@ -276,7 +276,7 @@ class Main
 
   def show_trains(trains)
     trains.each.with_index(1) do |train, index|
-      puts "Поезд № \"#{index}\" - #{train.number}"
+      puts "Поезд № \"#{index}\" - #{train.number} #{manufacture}"
     end
   end
 

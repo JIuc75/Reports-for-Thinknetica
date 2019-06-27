@@ -1,11 +1,13 @@
 require_relative 'instance_counter'
 require_relative 'validations'
-require_relative 'interface_constants'
 
 class Route
   include InstanceCounter
   include Validations
-  include InterfaceConstants
+
+  INCORRECT_START_ST  = 'Неверный тип начальной станции'.freeze
+  INCORRECT_FINISH_ST = 'Неверный тип конечной станции'.freeze
+  SAME_STATIONS = 'Начальные и конечные станции не должны совпадать'.freeze
 
   attr_reader :start_station, :end_station, :stations, :number
 
