@@ -12,6 +12,7 @@ require_relative 'manufacture'
 class Main
   include InterfaceConstants
   include Manufacture
+
   def run
     loop do
       show_menu
@@ -102,8 +103,8 @@ class Main
     show_trains(@trains)
   rescue RuntimeError
     puts DIVIDER
-    puts 'Неверный формат номера поезда'
-    create_trains
+    puts ERROR_NUMBER_FORMAT
+    retry
   end
 
   def create_route

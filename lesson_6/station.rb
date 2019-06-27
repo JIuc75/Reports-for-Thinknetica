@@ -1,10 +1,11 @@
 require_relative 'instance_counter'
-require_relative 'valid_module'
+require_relative 'validations'
 require_relative 'interface_constants'
 
 class Station
   include InstanceCounter
-  include Valid
+  include Validations
+
   attr_reader :name, :trains
 
   @@instances = []

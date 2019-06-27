@@ -1,12 +1,14 @@
 require_relative 'manufacture'
 require_relative 'instance_counter'
-require_relative 'valid_module'
+require_relative 'validations'
 require_relative 'interface_constants'
+
 class Train
   include Manufacture
   include InstanceCounter
-  include Valid
+  include Validations
   include InterfaceConstants
+
   attr_reader :number, :type, :speed, :route, :wagons
 
   @@trains = {}
@@ -20,9 +22,9 @@ class Train
     @type = type
     @speed = 0
     @wagons = []
+    validate!
     @@trains[number] = self
     register_instance
-    validate!
   end
 
   def up_speed(speed)
