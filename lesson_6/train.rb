@@ -83,7 +83,7 @@ class Train
   protected
 
   def validate!
-    raise ERROR_NUMBER_FORMAT if number !~ NUMBER_FORMAT
+    raise ERROR_NUMBER_FORMAT if @number !~ NUMBER_FORMAT
   end
 
 end

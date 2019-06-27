@@ -100,6 +100,10 @@ class Main
       puts 'Выберите 1 или 2'
     end
     show_trains(@trains)
+  rescue RuntimeError
+    puts DIVIDER
+    puts 'Неверный формат номера поезда'
+    create_trains
   end
 
   def create_route
@@ -195,10 +199,11 @@ class Main
         puts DIVIDER
         puts 'Выберите 1 или 2'
       end
-      puts 'Введите производителя'
-      self.manufacture = gets.chomp
-      show_wagons(@wagons)
     end
+    puts 'Введите производителя'
+    name = gets.chomp
+    self.manufacture = name
+    show_wagons(@wagons)
   end
 
   def add_wagons_to_train
