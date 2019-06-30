@@ -41,7 +41,7 @@ class Station
     raise EMPTY_NAME if name.empty?
   end
 
-  def train_bypass
+  def each_train
     trains.each { |train| yield(train) }
   end
 

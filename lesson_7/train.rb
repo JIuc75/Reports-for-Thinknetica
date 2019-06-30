@@ -89,7 +89,7 @@ class Train
     raise ERROR_NUMBER_FORMAT if @number !~ NUMBER_FORMAT
   end
 
-  def wagon_bypass
+  def each_wagon
     wagons.each { |wagon| yield(wagon) }
   end
 
