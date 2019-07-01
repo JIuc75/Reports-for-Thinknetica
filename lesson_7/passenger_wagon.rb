@@ -1,12 +1,17 @@
 class PassengerWagon < Wagon
 
-  def initialize(number, number_of_seats)
+  alias take_the_place_of take_volume
+
+  def initialize(number)
     super(number, 'passenger')
-    @number_of_seats = number_of_seats
   end
 
   def take_the_place_of
-    @place = @number_of_seats -= 1
+    take_volume(1)
+  end
+
+  def take_volume(volume = 1)
+    super(1)
   end
 
 end
