@@ -29,7 +29,8 @@ class Main
       when 10 then send_train
       when 11 then show_stations(@stations)
       when 12 then show_trains_on_station
-      when 13 then show_wagons(@wagons)
+      when 13 then set_volume
+      when 14 then show_wagons(@wagons)
       else
         puts DIVIDER
         puts 'Выберите число, соответствующее списку'
@@ -186,7 +187,6 @@ class Main
   def create_wagon
     puts DIVIDER
     puts 'Введите № вагона'
-    show_wagons(@wagons)
     number_wagons = gets.chomp
     if number_wagons.empty? || wagons_exist?(number_wagons)
       puts WAGONS_ALREADY_EXIST
@@ -196,11 +196,11 @@ class Main
       case gets.to_i
       when 1 then
         puts 'Укажите обьем в вагоне'
-        volume = gets.chomp
+        volume = gets.to_i
         @wagons << CargoWagon.new(number_wagons, volume)
       when 2 then
         puts 'Укажите количество мест в вагоне'
-        number_of_seats = gets.chomp
+        number_of_seats = gets.to_i
         @wagons << PassengerWagon.new(number_wagons, number_of_seats)
       else
         puts DIVIDER
@@ -211,6 +211,13 @@ class Main
     name = gets.chomp
     self.manufacture = name
     show_wagons(@wagons)
+  end
+
+  def set_volume
+    wagon = select_from_collection(@wagons)
+    volume = gets.to_i
+    wagon.take_volume(volume)
+    puts wagon.occupies_volume
   end
 
   def add_wagons_to_train
@@ -294,8 +301,8 @@ class Main
         puts " занятый объем #{wagon.occupies_volume}"
       elsif wagon.type == 'passenger'
         puts "#{index} - номер: #{wagon.number}, тип: #{wagon.type}"
-        puts " кол-во совободных мест #{wagon.vacancies}"
-        puts " кол-во занятых мест #{wagon.occupied_places}"
+        puts " кол-во совободных мест #{wagon.volume}"
+        puts " кол-во занятых мест #{wagon.occupies_volume}"
       end
     end
   end

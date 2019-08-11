@@ -4,22 +4,27 @@ class Wagon
   include Manufacture
   attr_reader :type, :number, :volume
 
-  def initialize(number, type, volume)
+  NOT_ENOUGH_SPACE = '!!!В вагоне больше нет места!!!'.freeze
+
+  def initialize(number, volume, type)
     @number = number
     @type = type
-    @occupied_volume = volume
+    @volume = volume
+    @occupied_volume = 0
   end
 
   def available_volume
-    @volume - @occupies_volume
+    @volume - @occupied_volume
   end
 
   def take_volume(volume)
-    if @occupied_volume + volume > @volume
-      raise '!!!В вагоне больше нет места!!!'
-    end
+    raise NOT_ENOUGH_SPACE if @occupied_volume + volume > @volume
 
-    @occupies_volume += volume
+    @occupied_volume += volume
+  end
+
+  def occupies_volume
+    @occupied_volume
   end
 
 end
