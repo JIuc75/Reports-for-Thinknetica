@@ -29,7 +29,7 @@ class Main
       when 10 then send_train
       when 11 then show_stations(@stations)
       when 12 then show_trains_on_station
-      when 13 then exit
+      when 13 then show_wagons(@wagons)
       else
         puts DIVIDER
         puts 'Выберите число, соответствующее списку'

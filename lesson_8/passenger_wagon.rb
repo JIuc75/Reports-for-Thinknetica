@@ -1,11 +1,7 @@
 class PassengerWagon < Wagon
 
-  def initialize(number)
-    super(number, 'passenger')
-  end
-
-  def take_the_place
-    take_volume(1)
+  def initialize(number, volume)
+    super(number, volume, 'passenger')
   end
 
   def take_volume(volume = 1)

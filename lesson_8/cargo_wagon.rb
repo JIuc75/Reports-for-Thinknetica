@@ -1,9 +1,7 @@
 class CargoWagon < Wagon
 
   def initialize(number, volume)
-    super(number, 'cargo')
-    @volume = volume
-    @occupies_volume = volume
+    super(number, volume,'cargo')
   end
 
 end
