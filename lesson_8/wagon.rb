@@ -2,7 +2,7 @@ require_relative 'manufacture'
 
 class Wagon
   include Manufacture
-  attr_reader :type, :number, :volume
+  attr_reader :type, :number, :volume, :occupied_volume
 
   NOT_ENOUGH_SPACE = '!!!В вагоне больше нет места!!!'.freeze
 
@@ -21,10 +21,6 @@ class Wagon
     raise NOT_ENOUGH_SPACE if @occupied_volume + volume > @volume
 
     @occupied_volume += volume
-  end
-
-  def occupies_volume
-    @occupied_volume
   end
 
 end

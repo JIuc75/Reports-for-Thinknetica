@@ -215,9 +215,13 @@ class Main
 
   def set_volume
     wagon = select_from_collection(@wagons)
-    volume = gets.to_i
+    volume = gets.to_i if wagon.type == 'cargo'
     wagon.take_volume(volume)
-    puts wagon.occupies_volume
+    puts wagon.occupied_volume
+  rescue RuntimeError => e
+    puts DIVIDER
+    puts e.message
+    retry
   end
 
   def add_wagons_to_train
@@ -297,12 +301,12 @@ class Main
     wagons.each.with_index do |wagon, index|
       if wagon.type == 'cargo'
         puts "#{index} - номер: #{wagon.number}, тип: #{wagon.type}"
-        puts " общий объем грузового вагона #{wagon.volume}"
-        puts " занятый объем #{wagon.occupies_volume}"
+        puts " свободный объем грузового вагона #{wagon.available_volume}"
+        puts " занятый объем #{wagon.occupied_volume}"
       elsif wagon.type == 'passenger'
         puts "#{index} - номер: #{wagon.number}, тип: #{wagon.type}"
-        puts " кол-во совободных мест #{wagon.volume}"
-        puts " кол-во занятых мест #{wagon.occupies_volume}"
+        puts " кол-во совободных мест #{wagon.available_volume}"
+        puts " кол-во занятых мест #{wagon.occupied_volume}"
       end
     end
   end
