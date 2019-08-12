@@ -31,6 +31,7 @@ class Main
       when 12 then show_trains_on_station
       when 13 then set_volume
       when 14 then show_wagons(@wagons)
+      when 15then exit
       else
         puts DIVIDER
         puts 'Выберите число, соответствующее списку'
@@ -214,6 +215,7 @@ class Main
   end
 
   def set_volume
+    show_wagons(@wagons)
     wagon = select_from_collection(@wagons)
     volume = gets.to_i if wagon.type == 'cargo'
     wagon.take_volume(volume)
@@ -401,7 +403,9 @@ class Main
     puts '10. Переместить поезд по маршруту'
     puts '11. Показать все станции'
     puts '12. Показать все поезда на станции'
-    puts '13. Выход'
+    puts '13. Занять места/объем'
+    puts '14. Показать все вагоны'
+    puts '15. Выход'
   end
 
   def manage_routes
