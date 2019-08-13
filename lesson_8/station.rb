@@ -44,5 +44,4 @@ class Station
   def each_train
     trains.each { |train| yield(train) }
   end
-
 end

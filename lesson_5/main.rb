@@ -9,6 +9,7 @@ require_relative 'cargo_wagon'
 require_relative 'interface_constants'
 
 class Main
+
   include InterfaceConstants
 
   def run
@@ -184,7 +185,7 @@ class Main
     number_wagons = gets.chomp
     if number_wagons.empty? || wagons_exist?(number_wagons)
       puts WAGONS_ALREADY_EXIST
-      return
+      nil
     else
       show_menu_create_type_wagons
       case gets.to_i
@@ -252,7 +253,9 @@ class Main
     return if station.nil?
 
     puts "На станции #{station} находятся поезда:"
-    station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
+    station.trains.each.with_index(1) do |train, index|
+      puts "#{index}. Поезд - №#{train.number}"
+    end
   end
 
   def show_stations(stations)

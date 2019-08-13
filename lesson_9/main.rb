@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'station'
 require_relative 'train'
 require_relative 'route'
@@ -31,7 +29,9 @@ class Main
       when 10 then send_train
       when 11 then show_stations(@stations)
       when 12 then show_trains_on_station
-      when 13 then exit
+      when 13 then set_volume
+      when 14 then show_wagons(@wagons)
+      when 15then exit
       else
         puts DIVIDER
         puts 'Выберите число, соответствующее списку'
@@ -188,7 +188,6 @@ class Main
   def create_wagon
     puts DIVIDER
     puts 'Введите № вагона'
-    show_wagons(@wagons)
     number_wagons = gets.chomp
     if number_wagons.empty? || wagons_exist?(number_wagons)
       puts WAGONS_ALREADY_EXIST
@@ -196,8 +195,14 @@ class Main
     else
       show_menu_create_type_wagons
       case gets.to_i
-      when 1 then @wagons << CargoWagon.new(number_wagons)
-      when 2 then @wagons << PassengerWagon.new(number_wagons)
+      when 1 then
+        puts 'Укажите обьем в вагоне'
+        volume = gets.to_i
+        @wagons << CargoWagon.new(number_wagons, volume)
+      when 2 then
+        puts 'Укажите количество мест в вагоне'
+        number_of_seats = gets.to_i
+        @wagons << PassengerWagon.new(number_wagons, number_of_seats)
       else
         puts DIVIDER
         puts 'Выберите 1 или 2'
@@ -207,6 +212,18 @@ class Main
     name = gets.chomp
     self.manufacture = name
     show_wagons(@wagons)
+  end
+
+  def set_volume
+    show_wagons(@wagons)
+    wagon = select_from_collection(@wagons)
+    volume = gets.to_i if wagon.type == 'cargo'
+    wagon.take_volume(volume)
+    puts wagon.occupied_volume
+  rescue RuntimeError => e
+    puts DIVIDER
+    puts e.message
+    retry
   end
 
   def add_wagons_to_train
@@ -261,7 +278,7 @@ class Main
     return if station.nil?
 
     puts "На станции #{station} находятся поезда:"
-    station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - №#{train.number}" }
+    station.trains.each.with_index(1) { |train, index| puts "#{index}. Поезд - № #{train.number}" }
   end
 
   def show_stations(stations)
@@ -283,8 +300,16 @@ class Main
   end
 
   def show_wagons(wagons)
-    wagons.each.with_index(1) do |wagon, index|
-      puts "Вагон № \"#{index}\" - #{wagon.number}"
+    wagons.each.with_index do |wagon, index|
+      if wagon.type == 'cargo'
+        puts "#{index} - номер: #{wagon.number}, тип: #{wagon.type}"
+        puts " свободный объем грузового вагона #{wagon.available_volume}"
+        puts " занятый объем #{wagon.occupied_volume}"
+      elsif wagon.type == 'passenger'
+        puts "#{index} - номер: #{wagon.number}, тип: #{wagon.type}"
+        puts " кол-во совободных мест #{wagon.available_volume}"
+        puts " кол-во занятых мест #{wagon.occupied_volume}"
+      end
     end
   end
 
@@ -378,7 +403,9 @@ class Main
     puts '10. Переместить поезд по маршруту'
     puts '11. Показать все станции'
     puts '12. Показать все поезда на станции'
-    puts '13. Выход'
+    puts '13. Занять места/объем'
+    puts '14. Показать все вагоны'
+    puts '15. Выход'
   end
 
   def manage_routes

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'station'
 require_relative 'train'
 require_relative 'route'
@@ -82,7 +84,6 @@ class Main
     puts 'Введите номер поезда'
     number_train = gets.chomp
     return if number_train.empty?
-
 
     if trains_exist?(number_train)
       puts TRAIN_ALREADY_EXIST

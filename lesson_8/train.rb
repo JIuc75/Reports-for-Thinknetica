@@ -7,7 +7,7 @@ class Train
   include InstanceCounter
   include Validations
 
-  NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i
+  NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i.freeze
   ERROR_NUMBER_FORMAT = 'Неверный формат номера'.freeze
 
   attr_reader :number, :type, :speed, :route, :wagons
@@ -92,5 +92,4 @@ class Train
   def each_wagon
     wagons.each { |wagon| yield(wagon) }
   end
-
 end

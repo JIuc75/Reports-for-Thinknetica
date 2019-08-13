@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'manufacture'
 require_relative 'instance_counter'
 require_relative 'validations'
@@ -7,8 +9,8 @@ class Train
   include InstanceCounter
   include Validations
 
-  NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i
-  ERROR_NUMBER_FORMAT = 'Неверный формат номера'.freeze
+  NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i.freeze
+  ERROR_NUMBER_FORMAT = 'Неверный формат номера'
 
   attr_reader :number, :type, :speed, :route, :wagons
 
@@ -92,5 +94,4 @@ class Train
   def each_wagon
     wagons.each { |wagon| yield(wagon) }
   end
-
 end

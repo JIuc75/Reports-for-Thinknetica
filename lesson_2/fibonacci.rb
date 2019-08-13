@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 end_fibonacci = 100
 fibonacci = [0, 1]
 num = 1

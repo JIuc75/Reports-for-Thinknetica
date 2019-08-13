@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puts 'Введите сторону A'
 a = gets.to_f
 puts 'Введите сторону B'

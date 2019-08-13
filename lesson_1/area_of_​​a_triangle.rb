@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puts 'Введите длинну основания треугольника.'
 height = gets.to_f
 puts 'Введите высоту треугольника.'

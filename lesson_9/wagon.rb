@@ -22,4 +22,5 @@ class Wagon
 
     @occupied_volume += volume
   end
+
 end

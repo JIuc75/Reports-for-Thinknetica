@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puts 'Введите число:'
 day = gets.to_i
 puts 'Введите номер месяца:'

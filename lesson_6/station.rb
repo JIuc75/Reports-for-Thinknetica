@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'validations'
 
@@ -5,7 +7,7 @@ class Station
   include InstanceCounter
   include Validations
 
-  EMPTY_NAME = 'Не указано наименование'.freeze
+  EMPTY_NAME = 'Не указано наименование'
 
   attr_reader :name, :trains
 

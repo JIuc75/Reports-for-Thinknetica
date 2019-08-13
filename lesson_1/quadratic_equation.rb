@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 puts 'Введите коэффициент А'
 a = gets.to_f
 puts 'Введите коэффициент B'

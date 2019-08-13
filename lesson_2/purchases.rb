@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 basket = {}
 loop do
   puts 'Введите название товара'
   title = gets.chomp
   break if title == 'стоп'
+
   puts 'Введите цену за еденицу товара'
   price = gets.to_f
   puts 'Введите количество товара'

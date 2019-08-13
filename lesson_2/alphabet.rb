@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 alphabet = ('а'..'я')
 vowels = Hash.new(0)
 array_vowels = /[ауоыиэюя]/

@@ -1,13 +1,31 @@
-# frozen_string_literal: true
+require_relative 'manufacture'
+require_relative 'instance_counter'
+require_relative 'validations'
 
 class Train
+  include Manufacture
+  include InstanceCounter
+  include Validations
+
+  NUMBER_FORMAT = /^[\da-z]{3}-?[\da-z]{2}$/i
+  ERROR_NUMBER_FORMAT = 'Неверный формат номера'.freeze
+
   attr_reader :number, :type, :speed, :route, :wagons
+
+  @@trains = {}
+
+  def self.find(number)
+    @@trains[number]
+  end
 
   def initialize(number, type)
     @number = number
     @type = type
     @speed = 0
     @wagons = []
+    validate!
+    @@trains[number] = self
+    register_instance
   end
 
   def up_speed(speed)
@@ -64,4 +82,15 @@ class Train
   def previous_station
     @route.stations[@index_station - 1] if @index_station.positive?
   end
+
+  protected
+
+  def validate!
+    raise ERROR_NUMBER_FORMAT if @number !~ NUMBER_FORMAT
+  end
+
+  def each_wagon
+    wagons.each { |wagon| yield(wagon) }
+  end
+
 end

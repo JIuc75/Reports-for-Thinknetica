@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'validations'
 
@@ -5,9 +7,9 @@ class Route
   include InstanceCounter
   include Validations
 
-  INCORRECT_START_ST  = 'Неверный тип начальной станции'.freeze
-  INCORRECT_FINISH_ST = 'Неверный тип конечной станции'.freeze
-  SAME_STATIONS = 'Начальные и конечные станции не должны совпадать'.freeze
+  INCORRECT_START_ST  = 'Неверный тип начальной станции'
+  INCORRECT_FINISH_ST = 'Неверный тип конечной станции'
+  SAME_STATIONS = 'Начальные и конечные станции не должны совпадать'
 
   attr_reader :start_station, :end_station, :stations, :number
 
@@ -43,5 +45,4 @@ class Route
     raise INCORRECT_FINISH_ST unless stations[-1].is_a?(Station)
     raise SAME_STATIONS if stations[0] == stations[-1]
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'manufacture'
 
 class Wagon
@@ -16,5 +18,4 @@ class Wagon
   def take_volume(volume)
     @occupies_volume += volume
   end
-
 end
